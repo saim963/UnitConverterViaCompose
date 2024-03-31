@@ -1,6 +1,7 @@
 package com.example.unitconverterviacompose
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -25,6 +26,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -153,9 +155,16 @@ class MainActivity : ComponentActivity() {
 //    }
 //}
 
-
 @Composable
 fun UnitConverter() {
+    var inputValue by remember{ mutableStateOf("") }
+    var outputValue by remember { mutableStateOf("") }
+    var inputUnit by remember { mutableStateOf("Centimeters") }
+    var outputUnit by remember { mutableStateOf("Meters") }
+    var iExpanded by remember { mutableStateOf(false) }
+    var oExpanded by remember { mutableStateOf(false) }
+    val conversionFactor = remember { mutableDoubleStateOf(0.01) }
+
     Column(
         Modifier.fillMaxSize(),
         Arrangement.Center,
@@ -166,21 +175,29 @@ fun UnitConverter() {
         Spacer(modifier = Modifier.height(16.dp))//dp os relative pixel value
 
         OutlinedTextField(
-            value = "",
-            onValueChange = {})//here onValChange tell the action that happen when value is changed
-        // here {} is an anonymous function
+            value = inputValue,
+            onValueChange = {
+                inputValue = it
+            },
+            label = { Text(text = "Enter Value")}
+            )//here onValChange tell the action that happen when value is changed
         Spacer(modifier = Modifier.height(16.dp))
         Row {
-
+            //Input Box
             Box {
-                Button(onClick = { /*TODO*/ }) {
+                //Input Button
+                Button(onClick = { iExpanded = true }) {
                     Text(text = "Select")
                     Icon(Icons.Default.ArrowDropDown, contentDescription = "Arrow Down")
                 }
-                DropdownMenu(expanded = true, onDismissRequest = { /*TODO*/ }) {
+                DropdownMenu(expanded = iExpanded, onDismissRequest = { iExpanded = false }) {
                     DropdownMenuItem(
                         text = { Text(text = "Millimeter") },
-                        onClick = { /*TODO*/ })
+                        onClick = {
+                            iExpanded = false
+                            inputUnit = "Millimeter"
+                            conversionFactor.value = 0.1
+                        })
                     DropdownMenuItem(
                         text = { Text(text = "Centimeter") },
                         onClick = { /*TODO*/ }
@@ -192,10 +209,27 @@ fun UnitConverter() {
                     
                 }
             }
+            Spacer(modifier = Modifier.width(16.dp))
+            //Output Box
             Box {
-                Button(onClick = { /*TODO*/ }) {
+                //Output Button
+                Button(onClick = { oExpanded = true }) {
                     Text(text = "Select")
                     Icon(Icons.Default.ArrowDropDown, contentDescription = "Arrow Down")
+
+                }
+                DropdownMenu(expanded = oExpanded, onDismissRequest = { oExpanded = false }) {
+                    DropdownMenuItem(
+                        text = { Text(text = "Millimeter") },
+                        onClick = { /*TODO*/ })
+                    DropdownMenuItem(
+                        text = { Text(text = "Centimeter") },
+                        onClick = { /*TODO*/ }
+                    )
+                    DropdownMenuItem(
+                        text = { Text(text = "Meter") },
+                        onClick = { /*TODO*/ }
+                    )
 
                 }
             }
