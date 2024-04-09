@@ -69,13 +69,27 @@ fun UnitConverter() {
         outputValue = result.toString()
     }
 
+    //If i ever want to place heading on top
+//    Column(
+//        Modifier.fillMaxSize(),
+//                Arrangement.Top,
+//                Alignment.CenterHorizontally
+//    ) {
+//        Spacer(modifier = Modifier.height(16.dp))
+//        Text(text = "Unit Converter",
+//            style = MaterialTheme.typography.headlineMedium
+//        )
+//    }
+
     Column(
         Modifier.fillMaxSize(),
         Arrangement.Center,
         Alignment.CenterHorizontally
     ) {
         //Here all UI elements will be stacked vertically
-        Text(text = "Unit Converter")
+        Text(text = "Unit Converter",
+            style = MaterialTheme.typography.headlineMedium
+        )
         Spacer(modifier = Modifier.height(16.dp))//dp os relative pixel value
 
         OutlinedTextField(
@@ -185,7 +199,10 @@ fun UnitConverter() {
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Text("Result: $outputValue $outputUnit")
+        //Result Text
+        Text("Result: $outputValue $outputUnit",
+            style = MaterialTheme.typography.headlineSmall
+            )
     }
 }
 
