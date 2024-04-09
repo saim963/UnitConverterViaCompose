@@ -65,7 +65,7 @@ fun UnitConverter() {
         // ?: Elvis operator -> smart short if statement
         val inputValueDouble = inputValue.toDoubleOrNull() ?: 0.0
 //        val result = (inputValueDouble * iConversionFactor.doubleValue * 100.0 / oConversionFactor.doubleValue).roundToInt() / 100.00
-        val result = (inputValueDouble * iConversionFactor.doubleValue * oConversionFactor.doubleValue * 100.0).roundToInt()/100.0
+        val result = (inputValueDouble * iConversionFactor.doubleValue * oConversionFactor.doubleValue * 1000.0).roundToInt()/1000.0
         outputValue = result.toString()
     }
 
@@ -82,6 +82,7 @@ fun UnitConverter() {
             value = inputValue,
             onValueChange = {
                 inputValue = it
+                convertUnits()
             },
             label = { Text(text = "Enter Value")}
             )//here onValChange tell the action that happen when value is changed
